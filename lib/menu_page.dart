@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gaofan/privacy_policy.dart';
-import 'package:meta/meta.dart';
 import 'about.dart';
-import 'model/product.dart';
 
 class CategoryMenuPage extends StatelessWidget {
-  final Category currentCategory;
-  final ValueChanged<Category> onCategoryTap;
-
-  const CategoryMenuPage({
-    Key key,
-    @required this.currentCategory,
-    @required this.onCategoryTap,
-  })  : assert(currentCategory != null),
-        assert(onCategoryTap != null);
 
   @override
   Widget build(BuildContext context) {

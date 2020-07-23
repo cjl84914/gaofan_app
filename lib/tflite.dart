@@ -6,7 +6,7 @@ class Tflite {
   static const MethodChannel _channel = const MethodChannel('tflite');
   static Future<Map> runStyleOnImage(
       {@required String path,
-        @required int style,
+        @required String style,
         double imageMean = 0,
         double imageStd = 255.0,
         double ratio = 1,
@@ -25,7 +25,6 @@ class Tflite {
       },
     );
   }
-
 
   static Future close() async {
     return await _channel.invokeMethod('close');

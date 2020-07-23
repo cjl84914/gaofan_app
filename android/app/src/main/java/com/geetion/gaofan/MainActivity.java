@@ -98,7 +98,7 @@ public class MainActivity extends FlutterActivity implements MethodCallHandler {
     }
 
     private class RunStyleOnImage extends TfliteTask {
-        String path, outputType, styleNum, ratio;
+        String path, outputType, style, ratio;
         float IMAGE_MEAN, IMAGE_STD;
         long startTime;
         int STYLE_SIZE = 256;
@@ -118,7 +118,7 @@ public class MainActivity extends FlutterActivity implements MethodCallHandler {
             startTime = SystemClock.uptimeMillis();
             //内容图片
             path = args.get("path").toString();
-            styleNum = args.get("style").toString();
+            style = args.get("style").toString();
             ratio = args.get("ratio").toString();
 
             InputStream inputStream = new FileInputStream(path.replace("file://", ""));
@@ -126,7 +126,7 @@ public class MainActivity extends FlutterActivity implements MethodCallHandler {
             contentByte = bitmapToByteBuffer(contentImage, CONTENT_SIZE, CONTENT_SIZE, IMAGE_MEAN, IMAGE_STD);
             contentByte256 = bitmapToByteBuffer(contentImage, STYLE_SIZE, STYLE_SIZE, IMAGE_MEAN, IMAGE_STD);
             //风格图片
-            String key = FlutterMain.getLookupKeyForAsset(String.format("assets/thumbnails/gstyle%s.jpg", styleNum));
+            String key = FlutterMain.getLookupKeyForAsset(style);
             Bitmap styleBitmap = BitmapFactory.decodeStream( context.getAssets().open(key));
             styleByte = bitmapToByteBuffer(styleBitmap, STYLE_SIZE, STYLE_SIZE, IMAGE_MEAN, IMAGE_STD);
             inputsForPredict = new Object[]{styleByte};

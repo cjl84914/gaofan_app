@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'model/product.dart';
 
 const double _kFlingVelocity = 2.0;
 
 class Backdrop extends StatefulWidget {
-  final Category currentCategory;
   final Widget frontLayer;
   final Widget backLayer;
   final Widget frontTitle;
   final Widget backTitle;
 
   const Backdrop({
-    @required this.currentCategory,
     @required this.frontLayer,
     @required this.backLayer,
     @required this.frontTitle,
     @required this.backTitle,
-  })  : assert(currentCategory != null),
-        assert(frontLayer != null),
+  })  : assert(frontLayer != null),
         assert(backLayer != null),
         assert(frontTitle != null),
         assert(backTitle != null);
@@ -95,11 +91,6 @@ class _BackdropState extends State<Backdrop>
   void didUpdateWidget(Backdrop old) {
     super.didUpdateWidget(old);
 
-    if (widget.currentCategory != old.currentCategory) {
-      _toggleBackdropLayerVisibility();
-    } else if (!_frontLayerVisible) {
-      _controller.fling(velocity: _kFlingVelocity);
-    }
   }
 
   @override

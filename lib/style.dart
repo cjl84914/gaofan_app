@@ -4,9 +4,11 @@ import 'package:share_extend/share_extend.dart';
 import 'dart:async';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
+import 'model/style.dart';
 import 'tflite.dart';
 
 var _image;
+
 class StyleWidget extends StatefulWidget {
   StyleWidget(image) {
     _image = image;
@@ -22,11 +24,11 @@ class _StyleState extends State<StyleWidget> {
   int _slider = 100;
   bool _setting = true;
   double _ratio = 1;
-  int _index;
+  String _style;
 
   Future styleNet() async {
     var recognitions = await Tflite.runStyleOnImage(
-        path: _image.path, ratio: _ratio, style: _index);
+        path: _image.path, ratio: _ratio, style: _style);
 //    print(recognitions);
     setState(() {
       _recognitions = recognitions;
@@ -78,7 +80,7 @@ class _StyleState extends State<StyleWidget> {
                         onPressed: () {
                           setState(() {
                             _busy = true;
-                            _ratio =  _slider * 0.01;
+                            _ratio = _slider * 0.01;
                           });
                           styleNet();
                         })))
@@ -102,34 +104,47 @@ class _StyleState extends State<StyleWidget> {
                     _slider = value.toInt();
                   });
                 }))));
+
+    Widget _build(Style style, BuildContext context) {
+      return GestureDetector(
+          onTap: () {
+            setState(() {
+              _busy = true;
+              _style = style.getPath;
+            });
+            styleNet();
+          },
+          child: Container(
+              width: 128.0,
+              height: 128.0,
+              padding: EdgeInsets.all(10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12.0),
+                    child: Image.asset(style.getPath),
+                  ),
+                  Text(style.name,
+                      textAlign: TextAlign.center,
+                     // style: TextStyle(color: Colors.amberAccent)
+                    )
+                ],
+              )));
+    }
+
     stackChildren.add(Positioned(
         bottom: 0.0,
         height: 150,
         width: size.width,
         child: Offstage(
             offstage: !_setting,
-            child: ListView.builder(
+            child: ListView(
                 scrollDirection: Axis.horizontal,
 //                padding: EdgeInsets.all(5),
-                itemCount: 34,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      child:            ClipRRect(
-                          borderRadius: BorderRadius.circular(12.0),
-                          child: Image.asset(
-                              'assets/thumbnails/gstyle$index.jpg')),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        _busy = true;
-                        _index = index;
-                      });
-                      styleNet();
-                    },
-                  );
-                }))));
+                children: Styles.list
+                    .map((Style c) => _build(c, context))
+                    .toList()))));
     if (_busy) {
       stackChildren.add(const Opacity(
         child: ModalBarrier(dismissible: false, color: Colors.grey),
@@ -138,7 +153,7 @@ class _StyleState extends State<StyleWidget> {
       stackChildren.add(const Center(child: CircularProgressIndicator()));
     }
     return Scaffold(
-      backgroundColor: Colors.black,
+        backgroundColor: Colors.black,
         appBar: AppBar(
           title: const Text('高梵'),
           actions: <Widget>[
