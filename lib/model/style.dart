@@ -22,7 +22,7 @@ class Styles {
         ),
         new Style(
           name: "立体主义3",
-          file: "gstyle3.jpg",
+          file: "gstyle5.jpg",
         ),
         new Style(
           name: "油画风景",

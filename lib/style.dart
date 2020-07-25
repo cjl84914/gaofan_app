@@ -40,55 +40,52 @@ class _StyleState extends State<StyleWidget> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     List<Widget> stackChildren = [];
-    if (_recognitions != null) {
-      stackChildren.add(Positioned(
-          top: 0.0,
-          left: 0.0,
-          width: size.width,
-          child: Image.memory(_recognitions["img"])));
-      stackChildren.add(Positioned(
-          bottom: 150,
-          height: 100,
-          width: size.width,
-          child: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
-            Expanded(
-                child: Offstage(
-                    offstage: _setting,
-                    child: IconButton(
-                        icon: Icon(Icons.close),
-                        iconSize: 36,
-                        onPressed: () {
-                          setState(() {
-                            _setting = !_setting;
-                          });
-                        }))),
-            Expanded(
-                child: IconButton(
-                    icon: Icon(Icons.tune),
-                    iconSize: 48,
-                    onPressed: () {
-                      setState(() {
-                        _setting = !_setting;
-                      });
-                    })),
-            Expanded(
-                child: Offstage(
-                    offstage: _setting,
-                    child: IconButton(
-                        icon: Icon(Icons.check),
-                        iconSize: 35,
-                        onPressed: () {
-                          setState(() {
-                            _busy = true;
-                            _ratio = _slider * 0.01;
-                          });
-                          styleNet();
-                        })))
-          ])));
-    } else if (_image != null) {
-      stackChildren.add(Positioned(
-          top: 0.0, left: 0.0, width: size.width, child: Image.file(_image)));
-    }
+    stackChildren.add(Positioned(
+        top: 0.0,
+        left: 0.0,
+        width: size.width,
+        child: _recognitions != null
+            ? Image.memory(_recognitions["img"])
+            : Image.file(_image)));
+    stackChildren.add(Positioned(
+        bottom: 150,
+        height: 100,
+        width: size.width,
+        child: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+          Expanded(
+              child: Offstage(
+                  offstage: _setting,
+                  child: IconButton(
+                      icon: Icon(Icons.close),
+                      iconSize: 36,
+                      onPressed: () {
+                        setState(() {
+                          _setting = !_setting;
+                        });
+                      }))),
+          Expanded(
+              child: IconButton(
+                  icon: Icon(Icons.tune),
+                  iconSize: 48,
+                  onPressed: () {
+                    setState(() {
+                      _setting = !_setting;
+                    });
+                  })),
+          Expanded(
+              child: Offstage(
+                  offstage: _setting,
+                  child: IconButton(
+                      icon: Icon(Icons.check),
+                      iconSize: 35,
+                      onPressed: () {
+                        setState(() {
+                          _busy = true;
+                          _ratio = _slider * 0.01;
+                        });
+                        styleNet();
+                      })))
+        ])));
     stackChildren.add(Positioned(
         bottom: 0,
         width: size.width,
@@ -125,10 +122,11 @@ class _StyleState extends State<StyleWidget> {
                     borderRadius: BorderRadius.circular(12.0),
                     child: Image.asset(style.getPath),
                   ),
-                  Text(style.name,
-                      textAlign: TextAlign.center,
-                     // style: TextStyle(color: Colors.amberAccent)
-                    )
+                  Text(
+                    style.name,
+                    textAlign: TextAlign.center,
+                    // style: TextStyle(color: Colors.amberAccent)
+                  )
                 ],
               )));
     }
