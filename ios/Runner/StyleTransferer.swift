@@ -147,6 +147,7 @@ class StyleTransferer {
   ///   - completion: the callback to receive the style transfer result.
   func runStyleTransfer(style styleImage: UIImage,
                         image: UIImage,
+                        ratio: Double,
                         completion: @escaping ((Result<StyleTransferResult>) -> Void)) {
     tfLiteQueue.async {
       let outputTensor: Tensor
@@ -155,12 +156,19 @@ class StyleTransferer {
       var stylePredictTime: TimeInterval = 0
       var styleTransferTime: TimeInterval = 0
       var postprocessingTime: TimeInterval = 0
-
+        
       func timeSinceStart() -> TimeInterval {
         return abs(startTime.timeIntervalSinceNow)
       }
 
       do {
+        /**
+        * 1. style + predict > style_bottlenect
+        * 2. content + predict > content_bottlenect
+        * 3. style_bottlenect + content_bottlenect > bottlenect_blended
+        * 4. content + bottlenect + transfer > result
+        */
+        
         // Preprocess style image.
         guard
           let styleRGBData = styleImage.scaledData(
@@ -187,6 +195,19 @@ class StyleTransferer {
           print("Failed to convert the input image buffer to RGB data.")
           return
         }
+        
+        guard
+          let contentRGBData = image.scaledData(
+            with: Constants.styleImageSize,
+            isQuantized: false
+          )
+        else {
+          DispatchQueue.main.async {
+            completion(.error(StyleTransferError.invalidImage))
+          }
+          print("Failed to convert the input image buffer to RGB data.")
+          return
+        }
 
         preprocessingTime = timeSinceStart()
 
@@ -197,16 +218,30 @@ class StyleTransferer {
         try self.predictInterpreter.invoke()
 
         // Get the output `Tensor` to process the inference results.
-        let predictResultTensor = try self.predictInterpreter.output(at: 0)
-
-        // Grab bottleneck data from output tensor.
-        let bottleneck = predictResultTensor.data
+        let style_bottleneck = try self.predictInterpreter.output(at: 0).data.toArray(type: Float32.self)
 
         stylePredictTime = timeSinceStart() - preprocessingTime
+        
+        // Copy the RGB data to the input `Tensor`.
+        try self.predictInterpreter.copy(contentRGBData, toInputAt: 0)
+        
+        // Run inference by invoking the `Interpreter`.
+        try self.predictInterpreter.invoke()
+        
+        // Get the output `Tensor` to process the inference results.
+        let content_bottleneck = try self.predictInterpreter.output(at: 0).data.toArray(type: Float32.self)
+        
+        let style_blending_ratio:Float32 = NSNumber.init(value: ratio).floatValue
+  
+        var style_bottleneck_blended = [Float32](repeating: 0, count: 100)
 
+        for i in 0 ..< 100 {
+            style_bottleneck_blended[i] = (1 - style_blending_ratio) * content_bottleneck[i] + style_blending_ratio * style_bottleneck[i]
+        }
+        
         // Copy the RGB and bottleneck data to the input `Tensor`.
         try self.transferInterpreter.copy(inputRGBData, toInputAt: 0)
-        try self.transferInterpreter.copy(bottleneck, toInputAt: 1)
+        try self.transferInterpreter.copy(Data.init(copyingBufferOf:style_bottleneck_blended), toInputAt: 1)
 
         // Run inference by invoking the `Interpreter`.
         try self.transferInterpreter.invoke()
@@ -381,9 +416,9 @@ private enum Constants {
   // Namespace for quantized Int8 models.
   enum Int8 {
 
-    static let predictModel = "assets/style_predict_quantized_256"
+    static let predictModel = "assets/style_predict"
 
-    static let transferModel = "assets/style_transfer_quantized_384"
+    static let transferModel = "assets/style_transform_quantized_512"
 
   }
 
@@ -401,5 +436,4 @@ private enum Constants {
   static let styleImageSize = CGSize(width: 256, height: 256)
 
   static let inputImageSize = CGSize(width: 384, height: 384)
-
 }

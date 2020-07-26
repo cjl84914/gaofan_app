@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:share_extend/share_extend.dart';
 import 'dart:async';
@@ -150,6 +151,17 @@ class _StyleState extends State<StyleWidget> {
       ));
       stackChildren.add(const Center(child: CircularProgressIndicator()));
     }
+
+    Future<String> _writeByteToImageFile(Uint8List byteData) async {
+      Directory dir = Platform.isAndroid
+          ? await getExternalStorageDirectory()
+          : await getApplicationDocumentsDirectory();
+      File imageFile = new File(
+          "${dir.path}/flutter/${DateTime.now().millisecondsSinceEpoch}.png");
+      imageFile.createSync(recursive: true);
+      imageFile.writeAsBytesSync(byteData);
+      return imageFile.path;
+    }
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
@@ -159,15 +171,8 @@ class _StyleState extends State<StyleWidget> {
                 icon: Icon(Icons.share),
                 onPressed: () async {
                   if (_recognitions != null) {
-                    Directory tempDir = await getTemporaryDirectory();
-                    Directory directory = new Directory('${tempDir.path}/tmp');
-                    if (!directory.existsSync()) {
-                      directory.createSync();
-                    }
-                    File file = new File('${tempDir.path}/style.jpg');
-                    file.writeAsBytes(_recognitions["img"]);
-                    print(file.path);
-                    ShareExtend.share(file.path, "image",
+                    var path =  await _writeByteToImageFile(_recognitions["img"]);
+                    ShareExtend.share(path, "image",
                         sharePanelTitle: "share image title",
                         subject: "share image subject");
                   }

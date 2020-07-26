@@ -4,6 +4,7 @@ import TensorFlowLite
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
     private var cpuStyleTransferer: StyleTransferer?
+    private var gpuStyleTransferer: StyleTransferer?
     override func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -19,6 +20,15 @@ import TensorFlowLite
             }
         }
         
+        StyleTransferer.newGPUStyleTransferer { result in
+            switch result {
+            case .success(let transferer):
+                self.gpuStyleTransferer = transferer
+            case .error(let wrappedError):
+                print("Failed to initialize: \(wrappedError)")
+            }
+        }
+        
         let controller: FlutterViewController = window?.rootViewController as! FlutterViewController;
         let channel = FlutterMethodChannel.init(name: "tflite", binaryMessenger: controller.binaryMessenger);
         channel.setMethodCallHandler { (call, rs) in
@@ -26,12 +36,14 @@ import TensorFlowLite
                 let args:NSDictionary = call.arguments as! NSDictionary
                 let imgPath = args["path"]
                 let stylePath = args["style"]
+                let ratio = args["ratio"]
                 let image = UIImage(contentsOfFile:imgPath as! String)
                 let key:String = FlutterDartProject.lookupKey(forAsset: stylePath as! String)
                 let styleImage = UIImage(named: key)
-                self.cpuStyleTransferer?.runStyleTransfer(
+                self.gpuStyleTransferer?.runStyleTransfer(
                     style: styleImage!,
                     image: image!,
+                    ratio: ratio as! Double,
                     completion: { result in
                         // Show the result on screen
                         switch result {
