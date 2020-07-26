@@ -69,6 +69,7 @@ target 'Runner' do
   use_frameworks!
   # Pods for StyleTransfer
   pod 'TensorFlowLiteSwift', '~> 0.0.1-nightly', :subspecs => ['CoreML', 'Metal']
+  pod 'Bugly'
   # Plugin Pods
 
   # Prepare symlinks folder. We use symlinks to avoid having Podfile.lock

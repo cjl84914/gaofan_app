@@ -1,4 +1,5 @@
 PODS:
+  - Bugly (2.5.5)
   - Flutter (1.0.0)
   - flutter_plugin_android_lifecycle (0.0.1):
     - Flutter
@@ -45,6 +46,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - Bugly
   - Flutter (from `Flutter`)
   - flutter_plugin_android_lifecycle (from `.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
   - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
@@ -64,6 +66,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+    - Bugly
     - TensorFlowLiteC
     - TensorFlowLiteSwift
   trunk:
@@ -100,6 +103,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter/ios"
 
 SPEC CHECKSUMS:
+  Bugly: eded937bbb1f731cacf689c2d934ddbd9ab34f83
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_plugin_android_lifecycle: dc0b544e129eebb77a6bfb1239d4d1c673a60a35
   image_cropper: 3c16d7651730ffe85897f5a1c4e2547e6b54989a
@@ -118,6 +122,6 @@ SPEC CHECKSUMS:
   url_launcher_web: e5527357f037c87560776e36436bf2b0288b965c
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
 
-PODFILE CHECKSUM: ca2ef748f0b4e3d3424b986aaf0cd5725aa2248d
+PODFILE CHECKSUM: 6acd056dacc0a5ac79bfe537b8ce32c33dc27b39
 
 COCOAPODS: 1.9.3

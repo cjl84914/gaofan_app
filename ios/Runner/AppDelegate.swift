@@ -1,5 +1,6 @@
 import Flutter
 import TensorFlowLite
+import Bugly
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -9,6 +10,9 @@ import TensorFlowLite
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        let config = BuglyConfig()
+        config.debugMode = true
+        Bugly.start(withAppId: "88f5a49cfe", config:config)
         GeneratedPluginRegistrant.register(with: self)
         
         StyleTransferer.newCPUStyleTransferer { result in
@@ -62,6 +66,7 @@ import TensorFlowLite
         }
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
+
 }
 
 
