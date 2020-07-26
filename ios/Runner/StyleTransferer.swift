@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+import Flutter
 import TensorFlowLite
 import UIKit
 
@@ -58,11 +58,11 @@ class StyleTransferer {
       // Construct the path to the model file.
       guard
           let transferModelPath = Bundle.main.path(
-            forResource: transferModel,
+            forResource:  FlutterDartProject.lookupKey(forAsset: transferModel),
             ofType: Constants.modelFileExtension
           ),
           let predictModelPath = Bundle.main.path(
-            forResource: predictModel,
+            forResource: FlutterDartProject.lookupKey(forAsset: predictModel),
             ofType: Constants.modelFileExtension
           )
       else {
@@ -381,18 +381,18 @@ private enum Constants {
   // Namespace for quantized Int8 models.
   enum Int8 {
 
-    static let predictModel = "style_predict_quantized_256"
+    static let predictModel = "assets/style_predict_quantized_256"
 
-    static let transferModel = "style_transfer_quantized_384"
+    static let transferModel = "assets/style_transfer_quantized_384"
 
   }
 
   // Namespace for Float16 models, optimized for GPU inference.
   enum Float16 {
 
-    static let predictModel = "style_predict_f16_256"
+    static let predictModel = "assets/style_predict_quantized_256"
 
-    static let transferModel = "style_transfer_f16_384"
+    static let transferModel = "assets/style_transfer_quantized_384"
 
   }
 

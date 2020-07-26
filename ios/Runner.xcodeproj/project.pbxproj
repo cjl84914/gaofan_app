@@ -15,6 +15,7 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		D80496D424CBEE2900A9F56B /* TFLiteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80496D324CBEE2900A9F56B /* TFLiteExtension.swift */; };
+		D80496D624CD17F900A9F56B /* StyleTransferer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80496D524CD17F900A9F56B /* StyleTransferer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,6 +50,7 @@
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D80496D224CBD74600A9F56B /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		D80496D324CBEE2900A9F56B /* TFLiteExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFLiteExtension.swift; sourceTree = "<group>"; };
+		D80496D524CD17F900A9F56B /* StyleTransferer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleTransferer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				D80496D524CD17F900A9F56B /* StyleTransferer.swift */,
 				D80496D324CBEE2900A9F56B /* TFLiteExtension.swift */,
 				D80496D224CBD74600A9F56B /* Runner-Bridging-Header.h */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
@@ -275,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D80496D424CBEE2900A9F56B /* TFLiteExtension.swift in Sources */,
+				D80496D624CD17F900A9F56B /* StyleTransferer.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);
