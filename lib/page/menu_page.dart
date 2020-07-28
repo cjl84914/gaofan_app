@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gaofan/privacy_policy.dart';
+import 'privacy_policy.dart';
 import 'about.dart';
 
 class CategoryMenuPage extends StatelessWidget {

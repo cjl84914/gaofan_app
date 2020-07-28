@@ -1,9 +1,8 @@
 class Styles {
+//  _list.add(new Style(name: "抽象主义",file: "gstyle1.jpg"));
+
   static List<Style> get list => [
-        new Style(
-          name: "抽象主义",
-          file: "gstyle1.jpg",
-        ),
+
         new Style(
           name: "立体主义",
           file: "gstyle0.jpg",
@@ -12,6 +11,10 @@ class Styles {
           name: "立体主义2",
           file: "gstyle2.jpg",
         ),
+    new Style(
+      name: "抽象主义",
+      file: "gstyle1.jpg",
+    ),
         new Style(
           name: "多维空间",
           file: "gstyle3.jpg",
@@ -25,12 +28,8 @@ class Styles {
           file: "gstyle5.jpg",
         ),
         new Style(
-          name: "油画风景",
-          file: "yhfj.jpg",
-        ),
-        new Style(
           name: "油画静物",
-          file: "yhjw.jpg",
+          file: "yhjw1.jpg",
         ),
         new Style(
           name: "扫描人像",
@@ -43,6 +42,30 @@ class Styles {
         new Style(
           name: "火焰效果",
           file: "gstyle27.jpg",
+        ),
+        new Style(
+          name: "裁剪",
+          file: "VCG41N1158454070.jpg",
+        ),
+        new Style(
+          name: "颜色彩带",
+          file: "gstyle22.jpg",
+        ),
+        new Style(
+          name: "颜色果冻",
+          file: "gstyle23.jpg",
+        ),
+        new Style(
+          name: "粉红万柳",
+          file: "gstyle31.jpg",
+        ),
+        new Style(
+          name: "彩色心心",
+          file: "gstyle32.jpg",
+        ),
+        new Style(
+          name: "螺旋之窗",
+          file: "gstyle33.jpg",
         )
       ];
 }

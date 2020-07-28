@@ -5,8 +5,8 @@ import 'package:share_extend/share_extend.dart';
 import 'dart:async';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
-import 'model/style.dart';
-import 'tflite.dart';
+import '../model/style.dart';
+import '../util/tflite.dart';
 
 var _image;
 
@@ -50,7 +50,7 @@ class _StyleState extends State<StyleWidget> {
             : Image.file(_image)));
     stackChildren.add(Positioned(
         bottom: 150,
-        height: 100,
+        height: 80,
         width: size.width,
         child: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
           Expanded(
@@ -162,21 +162,24 @@ class _StyleState extends State<StyleWidget> {
       imageFile.writeAsBytesSync(byteData);
       return imageFile.path;
     }
+
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
           title: const Text('高梵'),
           actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.share),
-                onPressed: () async {
-                  if (_recognitions != null) {
-                    var path =  await _writeByteToImageFile(_recognitions["img"]);
+            Opacity(
+              child: IconButton(
+                  icon: Icon(Icons.share),
+                  onPressed: () async {
+                    var path =
+                        await _writeByteToImageFile(_recognitions["img"]);
                     ShareExtend.share(path, "image",
                         sharePanelTitle: "share image title",
                         subject: "share image subject");
-                  }
-                })
+                  }),
+              opacity: _recognitions != null ? 1 : 0,
+            )
           ],
         ),
         body: Stack(children: stackChildren));

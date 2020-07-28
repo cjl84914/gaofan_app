@@ -53,10 +53,10 @@ public class StylePlugin implements MethodCallHandler {
         try {
             if (isLowMem) {
                 CONTENT_SIZE = 384;
-                interpreterPredict = loadModel("assets/style_predict_quantized_256.tflite", true, 4, true);
-                interpreterTransform = loadModel("assets/style_transfer_quantized_384.tflite", true, 4, false);
+                interpreterPredict = loadModel("assets/style_predict_quantized_256.tflite", true, 2, false);
+                interpreterTransform = loadModel("assets/style_transfer_quantized_384.tflite", true, 2, false);
             } else {
-                interpreterPredict = loadModel("assets/style_predict.tflite", true, 4, true);
+                interpreterPredict = loadModel("assets/style_predict.tflite", true, 4, false);
                 interpreterTransform = loadModel("assets/style_transform_quantized_512.tflite", true, 4, false);
             }
         } catch (IOException e) {

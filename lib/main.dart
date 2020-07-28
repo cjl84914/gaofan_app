@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'backdrop.dart';
-import 'menu_page.dart';
-import 'home.dart';
+import 'page/backdrop.dart';
+import 'page/menu_page.dart';
+import 'page/home.dart';
 
 void main() => runApp(App());
 

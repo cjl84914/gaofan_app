@@ -11,7 +11,7 @@ import Bugly
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         let config = BuglyConfig()
-        config.debugMode = true
+        config.debugMode = false
         Bugly.start(withAppId: "88f5a49cfe", config:config)
         GeneratedPluginRegistrant.register(with: self)
         
@@ -37,12 +37,12 @@ import Bugly
         let channel = FlutterMethodChannel.init(name: "tflite", binaryMessenger: controller.binaryMessenger);
         channel.setMethodCallHandler { (call, rs) in
             if("runStyleOnImage" == call.method){
-                let args:NSDictionary = call.arguments as! NSDictionary
+                let args = call.arguments as! NSDictionary
                 let imgPath = args["path"]
                 let stylePath = args["style"]
                 let ratio = args["ratio"]
                 let image = UIImage(contentsOfFile:imgPath as! String)
-                let key:String = FlutterDartProject.lookupKey(forAsset: stylePath as! String)
+                let key = FlutterDartProject.lookupKey(forAsset: stylePath as! String)
                 let styleImage = UIImage(named: key)
                 self.gpuStyleTransferer?.runStyleTransfer(
                     style: styleImage!,
@@ -53,7 +53,7 @@ import Bugly
                         switch result {
                         case let .success(styleTransferResult):
                             let png = styleTransferResult.resultImage.pngData()
-                            let map:NSDictionary = ["img":png]
+                            let map:Dictionary = ["img":png]
                             rs(map)
                         case let .error(error):
                             print(error.localizedDescription)

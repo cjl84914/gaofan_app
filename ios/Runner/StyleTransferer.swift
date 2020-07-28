@@ -72,18 +72,12 @@ class StyleTransferer {
         return
       }
 
-      // Specify the delegate for the TF Lite `Interpreter`.
-      let createDelegates: () -> [Delegate]? = {
-        if useMetalDelegate {
-          return [MetalDelegate()]
-        }
-        return nil
-      }
-      let createOptions: () -> Interpreter.Options? = {
+     
+      let createOptions: () -> InterpreterOptions? = {
         if useMetalDelegate {
           return nil
         }
-        var options = Interpreter.Options()
+        var options = InterpreterOptions()
         options.threadCount = ProcessInfo.processInfo.processorCount >= 2 ? 2 : 1
         return options
       }
@@ -92,13 +86,11 @@ class StyleTransferer {
         // Create the `Interpreter`s.
         let predictInterpreter = try Interpreter(
           modelPath: predictModelPath,
-          options: createOptions(),
-          delegates: createDelegates()
+          options: createOptions()
         )
         let transferInterpreter = try Interpreter(
           modelPath: transferModelPath,
-          options: createOptions(),
-          delegates: createDelegates()
+          options: createOptions()
         )
 
         // Allocate memory for the model's input `Tensor`s.
