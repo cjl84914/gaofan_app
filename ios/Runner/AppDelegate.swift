@@ -4,8 +4,8 @@ import Bugly
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
-    private var cpuStyleTransferer: StyleTransferer?
-    private var gpuStyleTransferer: StyleTransferer?
+    private var styleTransferer: StyleTransferer?
+    
     override func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -14,22 +14,24 @@ import Bugly
         config.debugMode = false
         Bugly.start(withAppId: "88f5a49cfe", config:config)
         GeneratedPluginRegistrant.register(with: self)
-        
-        StyleTransferer.newCPUStyleTransferer { result in
-            switch result {
-            case .success(let transferer):
-                self.cpuStyleTransferer = transferer
-            case .error(let wrappedError):
-                print("Failed to initialize: \(wrappedError)")
-            }
-        }
-        
-        StyleTransferer.newGPUStyleTransferer { result in
-            switch result {
-            case .success(let transferer):
-                self.gpuStyleTransferer = transferer
-            case .error(let wrappedError):
-                print("Failed to initialize: \(wrappedError)")
+
+        if #available(iOS 13.0, *) {
+             StyleTransferer.newCPUStyleTransferer { result in
+                       switch result {
+                       case .success(let transferer):
+                           self.styleTransferer = transferer
+                       case .error(let wrappedError):
+                           print("Failed to initialize: \(wrappedError)")
+                       }
+                   }
+        }else{
+            StyleTransferer.newGPUStyleTransferer { result in
+                switch result {
+                case .success(let transferer):
+                    self.styleTransferer = transferer
+                case .error(let wrappedError):
+                    print("Failed to initialize: \(wrappedError)")
+                }
             }
         }
         
@@ -44,7 +46,7 @@ import Bugly
                 let image = UIImage(contentsOfFile:imgPath as! String)
                 let key = FlutterDartProject.lookupKey(forAsset: stylePath as! String)
                 let styleImage = UIImage(named: key)
-                self.gpuStyleTransferer?.runStyleTransfer(
+                self.styleTransferer?.runStyleTransfer(
                     style: styleImage!,
                     image: image!,
                     ratio: ratio as! Double,

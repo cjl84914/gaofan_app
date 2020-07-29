@@ -27,15 +27,12 @@ class _MyHomePageState extends State<HomePage> {
     if (file != null) {
       File croppedFile = await ImageCropper.cropImage(
           sourcePath: file.path,
-          aspectRatioPresets: [CropAspectRatioPreset.square],
+          aspectRatio:CropAspectRatio(ratioX: 1, ratioY: 1),
           androidUiSettings: AndroidUiSettings(
               toolbarTitle: '裁剪',
-              toolbarColor: Colors.black,
-              toolbarWidgetColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: true),
+          ),
           iosUiSettings: IOSUiSettings(
-            title: '裁剪',
+              title: '裁剪'
           ));
       if (croppedFile != null) {
         Navigator.push(context, new MaterialPageRoute(builder: (context) {

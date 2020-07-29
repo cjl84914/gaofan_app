@@ -18,9 +18,9 @@ PODS:
     - Flutter
   - share_extend (0.0.1):
     - Flutter
-  - TensorFlowLiteC (2.0.0)
-  - TensorFlowLiteSwift (2.0.0):
-    - TensorFlowLiteC (= 2.0.0)
+  - TensorFlowLiteC (2.2.0)
+  - TensorFlowLiteSwift (2.2.0):
+    - TensorFlowLiteC (= 2.2.0)
   - TOCropViewController (2.5.4)
   - url_launcher (0.0.1):
     - Flutter
@@ -44,7 +44,7 @@ DEPENDENCIES:
   - path_provider_macos (from `.symlinks/plugins/path_provider_macos/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - share_extend (from `.symlinks/plugins/share_extend/ios`)
-  - TensorFlowLiteSwift (~> 2.0.0)
+  - TensorFlowLiteSwift (~> 2.2.0)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
   - url_launcher_linux (from `.symlinks/plugins/url_launcher_linux/ios`)
   - url_launcher_macos (from `.symlinks/plugins/url_launcher_macos/ios`)
@@ -52,10 +52,11 @@ DEPENDENCIES:
   - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
 SPEC REPOS:
-  trunk:
-    - Bugly
+  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
     - TensorFlowLiteC
     - TensorFlowLiteSwift
+  trunk:
+    - Bugly
     - TOCropViewController
 
 EXTERNAL SOURCES:
@@ -99,8 +100,8 @@ SPEC CHECKSUMS:
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
   permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
   share_extend: b6748dc53695587891126a89533b862b92548c7b
-  TensorFlowLiteC: d22a94f77938edb2dfcb9674937f9548a3fcdb23
-  TensorFlowLiteSwift: dcd91bd74091f8e3e1b9b28a7d789f635dc26bea
+  TensorFlowLiteC: b3ab9e867b0b71052ca102a32a786555b330b02e
+  TensorFlowLiteSwift: 2dd5e9c895e1819501f0fba3d8b69a536bda6c65
   TOCropViewController: 2a1ae1242600b1f2d996fd91a5268b2309a33b5c
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   url_launcher_linux: ac237cb7a8058736e4aae38bdbcc748a4b394cc0
@@ -108,6 +109,6 @@ SPEC CHECKSUMS:
   url_launcher_web: e5527357f037c87560776e36436bf2b0288b965c
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
 
-PODFILE CHECKSUM: 2466dc922895388e8c3056113bbd55eb873c8df2
+PODFILE CHECKSUM: 183593d6bb4ad8c2ba3281745709162a5266bc1d
 
 COCOAPODS: 1.9.3

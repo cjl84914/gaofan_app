@@ -1,8 +1,6 @@
 class Styles {
-//  _list.add(new Style(name: "抽象主义",file: "gstyle1.jpg"));
 
   static List<Style> get list => [
-
         new Style(
           name: "立体主义",
           file: "gstyle0.jpg",
@@ -11,10 +9,10 @@ class Styles {
           name: "立体主义2",
           file: "gstyle2.jpg",
         ),
-    new Style(
-      name: "抽象主义",
-      file: "gstyle1.jpg",
-    ),
+        new Style(
+          name: "抽象主义",
+          file: "gstyle1.jpg",
+        ),
         new Style(
           name: "多维空间",
           file: "gstyle3.jpg",
@@ -42,10 +40,6 @@ class Styles {
         new Style(
           name: "火焰效果",
           file: "gstyle27.jpg",
-        ),
-        new Style(
-          name: "裁剪",
-          file: "VCG41N1158454070.jpg",
         ),
         new Style(
           name: "颜色彩带",

@@ -1,3 +1,4 @@
+source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
 # Uncomment this line to define a global platform for your project
 # platform :ios, '9.0'
 platform :ios, '12.0'
@@ -64,8 +65,9 @@ target 'Runner' do
   # Keep pod path relative so it can be checked into Podfile.lock.
   pod 'Flutter', :path => 'Flutter'
   # Pods for StyleTransfer
-  pod 'TensorFlowLiteSwift', '~> 2.0.0'
-  #, :subspecs => ['CoreML', 'Metal']
+  pod 'TensorFlowLiteSwift',  '~> 2.2.0'
+  #''~> 0.0.1-nightly', :subspecs => ['CoreML', 'Metal']
+
   pod 'Bugly'
   # Plugin Pods
 
